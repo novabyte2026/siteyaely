@@ -48,6 +48,7 @@
   .hero-description{animation:welcome-in .8s .18s both}
   .hero-actions{animation:welcome-in .8s .28s both}
   .hero-trail .trail-line{stroke-dasharray:1;animation:trace-line 1.8s .3s both}
+  .motion-enabled .hero:not(.is-visible) :is(.hero-copy>.eyebrow,.hero-copy>h1,.hero-description,.hero-actions,.hero-trail .trail-line){animation:none}
 }
 @media(max-width:620px){.hero::before{inset:12% -20px 5% -20px}.hero-trail{inset:-10px -12px 0 -12px;width:calc(100% + 24px)}.home-values .values-inner{gap:10px;padding-block:24px}.home-values .values-inner>p{font-size:12px}.home-values .value-kicker{font-size:9px;margin-bottom:6px}.home-values small{font-size:9px;max-width:95px;margin-inline:auto}.home-values .values-inner>span{height:42px;flex-shrink:0}.back-to-top{bottom:14px;left:14px;font-size:10px;padding:8px 12px;min-height:40px}}
 @media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-trail .trail-line,.faq-list details[open]>p{animation:none!important}.route-card,.route-card::before,.photo-caption,.teacher-process article,.button>span,.text-link>span,.faq-list summary>span{transition:none!important;translate:none!important}.button-primary::after,.button-gold::after{display:none}}

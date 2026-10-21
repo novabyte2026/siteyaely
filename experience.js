@@ -3,30 +3,56 @@
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const root = document.documentElement;
   const revealTargets = [...document.querySelectorAll('.section-heading,.about-copy,.section-top,.route-card,.learning-panel,.teacher-invitation-inner>div,.belief-inner,.faq-list,.closing,.teacher-process article,.registration-intro,.form-card,.parent-intro,.journey-stop,.connection-scene,.routes-heading')];
+  const motionTargets = [...revealTargets, ...document.querySelectorAll('.hero')];
   let revealObserver;
+  let resetObserver;
   function showAll() {
-    revealTargets.forEach(el => el.classList.add('is-visible'));
+    motionTargets.forEach(el => el.classList.add('is-visible'));
     root.classList.remove('motion-enabled');
     revealObserver?.disconnect();
+    resetObserver?.disconnect();
   }
-  if (!reduce.matches && 'IntersectionObserver' in window) {
+  function observeMotion() {
+    showAll();
+    if (reduce.matches || !('IntersectionObserver' in window)) return;
     try {
       revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
-        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); }
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
       }), {rootMargin:'0px 0px 70px 0px',threshold:0});
+      // Reset beyond the entrance boundary so the moving element cannot retrigger itself.
+      resetObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (!entry.isIntersecting && !entry.target.contains(document.activeElement)) {
+          entry.target.classList.remove('is-visible');
+        }
+      }), {rootMargin:'120px 0px 120px 0px',threshold:0});
       revealTargets.forEach((el,index) => {
         el.classList.add('reveal-ready');
         const direction = el.matches('.section-heading,.parent-intro,.registration-intro,.route-card:not(.route-teacher)') ? 'right' : el.matches('.about-copy,.form-card,.route-teacher,.connection-scene,.faq-list') ? 'left' : el.matches('.journey-stop,.teacher-process article') ? (index % 2 ? 'right' : 'left') : 'up';
         el.dataset.reveal = direction;
         if (el.matches('.route-card,.teacher-process article')) el.style.setProperty('--reveal-delay', (index % 2) * 75 + 'ms');
-        if (el.getBoundingClientRect().top < window.innerHeight + 20) el.classList.add('is-visible');
-        else revealObserver.observe(el);
+      });
+      motionTargets.forEach(el => {
+        const box = el.getBoundingClientRect();
+        el.classList.toggle('is-visible', (box.top < window.innerHeight + 70 && box.bottom > 0) || el.contains(document.activeElement));
+        revealObserver.observe(el);
+        resetObserver.observe(el);
       });
       root.classList.add('motion-enabled');
     } catch { showAll(); }
   }
-  document.addEventListener('focusin', event => event.target.closest('.reveal-ready')?.classList.add('is-visible'));
+  observeMotion();
+  document.addEventListener('focusin', event => {
+    motionTargets.forEach(el => { if (el.contains(event.target)) el.classList.add('is-visible'); });
+  });
+  document.addEventListener('focusout', () => requestAnimationFrame(() => {
+    if (!root.classList.contains('motion-enabled')) return;
+    motionTargets.forEach(el => {
+      const box = el.getBoundingClientRect();
+      if ((box.bottom < -120 || box.top > window.innerHeight + 120) && !el.contains(document.activeElement)) el.classList.remove('is-visible');
+    });
+  }));
   window.addEventListener('beforeprint', showAll);
+  window.addEventListener('afterprint', observeMotion);
 
   const journey = document.querySelector('.journey-stops');
   const stops = journey ? [...journey.querySelectorAll('.journey-stop')] : [];
@@ -54,7 +80,7 @@
   function schedule() { if(journey && !frame) frame = requestAnimationFrame(updateJourney); }
   window.addEventListener('scroll',schedule,{passive:true});
   window.addEventListener('resize',schedule,{passive:true});
-  reduce.addEventListener('change',() => { if(reduce.matches) showAll(); schedule(); });
+  reduce.addEventListener('change',() => { observeMotion(); schedule(); });
   window.addEventListener('pageshow',schedule);
   schedule();
 })();

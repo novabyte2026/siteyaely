@@ -85,5 +85,6 @@
   window.addEventListener('resize',schedule,{passive:true});
   reduce.addEventListener('change',() => { observeMotion(); schedule(); });
   window.addEventListener('pageshow',schedule);
+  document.addEventListener('site:viewchange',() => { observeMotion(); schedule(); });
   schedule();
 })();

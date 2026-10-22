@@ -9,7 +9,7 @@
   const back = document.createElement('button');
   back.type = 'button';
   back.className = 'back-to-top';
-  back.textContent = 'לראש העמוד ↑';
+  back.textContent = document.body.classList.contains('category-mode') ? 'לתחילת החלק ↑' : 'לראש העמוד ↑';
   back.hidden = true;
   document.body.append(back);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
@@ -30,6 +30,7 @@
   window.addEventListener('scroll',schedule,{passive:true});
   window.addEventListener('resize',schedule,{passive:true});
   window.addEventListener('pageshow',schedule);
+  document.addEventListener('site:viewchange',schedule);
   if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(document.body);
   update();
 })();

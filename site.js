@@ -20,7 +20,7 @@
   });
   window.matchMedia('(min-width: 1101px)').addEventListener('change', close);
   const links = [...nav.querySelectorAll('a[href^="#"]')];
-  if ('IntersectionObserver' in window && !document.body.classList.contains('category-mode')) {
+  if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) links.forEach(link => {

@@ -29,7 +29,10 @@
         el.classList.add('reveal-ready');
         const direction = el.matches('.section-heading,.parent-intro,.registration-intro,.route-card:not(.route-teacher)') ? 'right' : el.matches('.about-copy,.form-card,.route-teacher,.connection-scene,.faq-list') ? 'left' : el.matches('.journey-stop,.teacher-process article') ? (index % 2 ? 'right' : 'left') : 'up';
         el.dataset.reveal = direction;
-        if (el.matches('.route-card,.teacher-process article')) el.style.setProperty('--reveal-delay', (index % 2) * 75 + 'ms');
+        if (el.matches('.route-card,.teacher-process article')) {
+          const siblings = [...el.parentElement.children].filter(child => child.matches('.route-card,.teacher-process article'));
+          el.style.setProperty('--reveal-delay', siblings.indexOf(el) * 80 + 'ms');
+        }
       });
       motionTargets.forEach(el => {
         const box = el.getBoundingClientRect();

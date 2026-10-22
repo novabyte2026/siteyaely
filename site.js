@@ -18,7 +18,7 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') { close(); menu.focus(); }
   });
-  window.matchMedia('(min-width: 621px)').addEventListener('change', close);
+  window.matchMedia('(min-width: 1101px)').addEventListener('change', close);
   const links = [...nav.querySelectorAll('a[href^="#"]')];
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {

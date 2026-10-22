@@ -13,8 +13,8 @@
 .home-values{border:0;background:linear-gradient(90deg,#f2ede2,#edf3f0 48%,#e7f0f2);position:relative}
 .home-values .values-inner{justify-content:space-around;gap:24px;padding-block:30px}
 .home-values .values-inner>p{font-size:18px;line-height:1.5;text-align:center}
-.home-values .value-kicker{display:block;font-size:10px;color:#9b7c43;letter-spacing:.8px;margin-bottom:7px}
-.home-values small{display:block;color:#71848d;font-size:11px;margin-top:5px}
+.home-values .value-kicker{display:block;font-size:14px;color:#9b7c43;letter-spacing:.8px;margin-bottom:7px}
+.home-values small{display:block;color:#71848d;font-size:14px;margin-top:5px}
 .home-values .values-inner>span{height:33px;width:1px;background:#c8d3ce;border:0;border-radius:0}
 .route-card{isolation:isolate;overflow:hidden;transition:translate .35s,box-shadow .35s,border-color .35s}
 .route-card::before{content:'';position:absolute;z-index:-1;width:175px;height:175px;border-radius:50%;left:-80px;bottom:-100px;background:#eaf2f2;transition:scale .6s,translate .6s}
@@ -37,7 +37,7 @@
 .faq-list details[open]>p{animation:answer-in .3s ease-out}
 .faq-list summary>span{transition:rotate .25s}
 .faq-list details[open] summary>span{transform:none;rotate:45deg}
-.back-to-top{position:fixed;bottom:22px;left:24px;z-index:25;border:1px solid #cfdbd9;background:#fffef9f5;color:var(--navy);border-radius:30px;padding:9px 15px;box-shadow:0 5px 20px #173c4c12;font-size:11px;cursor:pointer;min-height:42px}
+.back-to-top{position:fixed;bottom:22px;left:24px;z-index:25;border:1px solid #cfdbd9;background:#fffef9f5;color:var(--navy);border-radius:30px;padding:9px 15px;box-shadow:0 5px 20px #173c4c12;font-size:14px;cursor:pointer;min-height:42px}
 .back-to-top:hover{background:#e8f1f1}
 @keyframes answer-in{from{opacity:0;translate:0 -4px}to{opacity:1;translate:0 0}}
 @keyframes welcome-in{from{opacity:0;translate:0 13px}to{opacity:1;translate:0 0}}
@@ -50,6 +50,6 @@
   .hero-trail .trail-line{stroke-dasharray:1;animation:trace-line 1.8s .3s both}
   .motion-enabled .hero:not(.is-visible) :is(.hero-copy>.eyebrow,.hero-copy>h1,.hero-description,.hero-actions,.hero-trail .trail-line){animation:none}
 }
-@media(max-width:620px){.hero::before{inset:12% -20px 5% -20px}.hero-trail{inset:-10px -12px 0 -12px;width:calc(100% + 24px)}.home-values .values-inner{gap:10px;padding-block:24px}.home-values .values-inner>p{font-size:12px}.home-values .value-kicker{font-size:9px;margin-bottom:6px}.home-values small{font-size:9px;max-width:95px;margin-inline:auto}.home-values .values-inner>span{height:42px;flex-shrink:0}.back-to-top{bottom:14px;left:14px;font-size:10px;padding:8px 12px;min-height:40px}}
+@media(max-width:620px){.hero::before{inset:12% -20px 5% -20px}.hero-trail{inset:-10px -12px 0 -12px;width:calc(100% + 24px)}.home-values .values-inner{gap:10px;padding-block:24px}.home-values .values-inner>p{font-size:14px}.home-values .value-kicker{font-size:14px;margin-bottom:6px}.home-values small{font-size:14px;max-width:95px;margin-inline:auto}.home-values .values-inner>span{height:42px;flex-shrink:0}.back-to-top{bottom:14px;left:14px;font-size:14px;padding:8px 12px;min-height:40px}}
 @media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-trail .trail-line,.faq-list details[open]>p{animation:none!important}.route-card,.route-card::before,.photo-caption,.teacher-process article,.button>span,.text-link>span,.faq-list summary>span{transition:none!important;translate:none!important}.button-primary::after,.button-gold::after{display:none}}
 @media print{.reading-progress,.back-to-top,.hero-trail{display:none}.hero-copy>*{animation:none!important}}
